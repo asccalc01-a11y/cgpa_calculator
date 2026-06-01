@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CGPA Calculator — Academic Excellence</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-canvas">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">ACS-CalC</span>
+      </div>
+      <nav class="tab-nav" role="tablist">
+        <button class="tab-btn active" data-tab="sgpa" role="tab" aria-selected="true">SGPA</button>
+        <button class="tab-btn" data-tab="cgpa" role="tab" aria-selected="false">CGPA</button>
+        <button class="tab-btn" data-tab="percent" role="tab" aria-selected="false">Percentage</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- ============ SGPA TAB ============ -->
+    <section id="tab-sgpa" class="tab-panel active" role="tabpanel">
+      <div class="panel-header">
+        <h1 class="panel-title">SGPA Calculator</h1>
+        <p class="panel-subtitle">Add your subjects, credits and grades to compute your semester GPA.</p>
+      </div>
+
+      <div class="card glass-card" id="sgpa-card">
+        <div class="subjects-header">
+          <span class="col-label">Subject</span>
+          <span class="col-label">Credits</span>
+          <span class="col-label">Grade</span>
+          <span class="col-label"></span>
+        </div>
+        <div id="subjects-list" class="subjects-list"></div>
+
+        <div class="card-actions">
+          <button class="btn btn-ghost" id="add-subject-btn">
+            <span class="btn-icon">+</span> Add Subject
+          </button>
+        </div>
+
+        <div class="result-bar" id="sgpa-result-bar">
+          <div class="result-label">Semester GPA</div>
+          <div class="result-value" id="sgpa-value">—</div>
+          <div class="result-actions">
+            <button class="icon-btn" id="copy-sgpa-btn" title="Copy SGPA" aria-label="Copy SGPA">⎘</button>
+            <button class="icon-btn" id="reset-sgpa-btn" title="Reset" aria-label="Reset SGPA">↺</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CGPA TAB ============ -->
+    <section id="tab-cgpa" class="tab-panel" role="tabpanel" hidden>
+      <div class="panel-header">
+        <h1 class="panel-title">CGPA Calculator</h1>
+        <p class="panel-subtitle">Enter each semester's SGPA and credits to calculate your cumulative GPA.</p>
+      </div>
+
+      <div class="card glass-card" id="cgpa-card">
+        <div class="subjects-header semesters-header">
+          <span class="col-label">Semester</span>
+          <span class="col-label">SGPA</span>
+          <span class="col-label">Credits</span>
+          <span class="col-label"></span>
+        </div>
+        <div id="semesters-list" class="subjects-list"></div>
+
+        <div class="card-actions">
+          <button class="btn btn-ghost" id="add-semester-btn">
+            <span class="btn-icon">+</span> Add Semester
+          </button>
+        </div>
+
+        <div class="result-bar" id="cgpa-result-bar">
+          <div class="result-label">Cumulative GPA</div>
+          <div class="result-value" id="cgpa-value">—</div>
+          <div class="result-actions">
+            <button class="icon-btn" id="copy-cgpa-btn" title="Copy CGPA" aria-label="Copy CGPA">⎘</button>
+            <button class="icon-btn" id="reset-cgpa-btn" title="Reset" aria-label="Reset CGPA">↺</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PERCENTAGE TAB ============ -->
+    <section id="tab-percent" class="tab-panel" role="tabpanel" hidden>
+      <div class="panel-header">
+        <h1 class="panel-title">Percentage Converter</h1>
+        <p class="panel-subtitle">Convert your CGPA to a percentage using the standard formula.</p>
+      </div>
+
+      <div class="card glass-card converter-card">
+        <div class="formula-box">
+          <span class="formula-text">Percentage = (CGPA − 0.75) × 10</span>
+        </div>
+
+        <div class="converter-input-group">
+          <label class="input-label" for="cgpa-input">Enter CGPA</label>
+          <input
+            type="number"
+            id="cgpa-input"
+            class="text-input"
+            placeholder="e.g. 8.5"
+            min="0"
+            max="10"
+            step="0.01"
+            inputmode="decimal"
+          />
+        </div>
+
+        <div class="result-bar" id="percent-result-bar">
+          <div class="result-label">Percentage</div>
+          <div class="result-value" id="percent-value">—</div>
+          <div class="result-actions">
+            <button class="icon-btn" id="copy-percent-btn" title="Copy Percentage" aria-label="Copy Percentage">⎘</button>
+            <button class="icon-btn" id="reset-percent-btn" title="Reset" aria-label="Reset Percentage">↺</button>
+          </div>
+        </div>
+
+        <div class="grade-band-legend">
+          <div class="legend-title">Grade Bands</div>
+          <div class="bands-grid">
+            <div class="band" style="--band-color: #34d399">O — 10</div>
+            <div class="band" style="--band-color: #60a5fa">A+ — 9</div>
+            <div class="band" style="--band-color: #a78bfa">A — 8</div>
+            <div class="band" style="--band-color: #f472b6">B+ — 7</div>
+            <div class="band" style="--band-color: #fb923c">B — 6</div>
+            <div class="band" style="--band-color: #facc15">C — 5</div>
+            <div class="band" style="--band-color: #94a3b8">P — 4</div>
+            <div class="band" style="--band-color: #f87171">F — 0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <span>ACS-CalC · Academic Tools · Data saved locally</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
